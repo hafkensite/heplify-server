@@ -26,9 +26,10 @@ func WebConfig(r *http.Request) (*HeplifyServer, error) {
 		webSetting.ESPass = ESPass
 	}
 	ESDiscovery := r.FormValue("ESDiscovery")
-	if ESDiscovery == "true" {
+	switch ESDiscovery {
+	case "true":
 		webSetting.ESDiscovery = true
-	} else if ESDiscovery == "false" {
+	case "false":
 		webSetting.ESDiscovery = false
 	}
 	webSetting.LokiURL = r.FormValue("LokiURL")
@@ -57,15 +58,16 @@ func WebConfig(r *http.Request) (*HeplifyServer, error) {
 	}
 	webSetting.LineprotoBuffer = lineprotoBuffer
 	DBShema := r.FormValue("DBShema")
-	if DBShema == "homer5" {
+	switch DBShema {
+	case "homer5":
 		webSetting.DBShema = DBShema
 		webSetting.DBDriver = "mysql"
 		webSetting.DBConfTable = "homer_configuration"
-	} else if DBShema == "homer7" {
+	case "homer7":
 		webSetting.DBShema = DBShema
 		webSetting.DBDriver = "postgres"
 		webSetting.DBConfTable = "homer_config"
-	} else if DBShema == "homer11" {
+	case "homer11":
 		webSetting.DBShema = "mock"
 		webSetting.DBDriver = "mock"
 		webSetting.DBConfTable = "homer_config"
@@ -90,9 +92,10 @@ func WebConfig(r *http.Request) (*HeplifyServer, error) {
 		return nil, err
 	}
 	DBRotate := r.FormValue("DBRotate")
-	if DBRotate == "true" {
+	switch DBRotate {
+	case "true":
 		webSetting.DBRotate = true
-	} else if DBRotate == "false" {
+	case "false":
 		webSetting.DBRotate = false
 	}
 	if webSetting.DBDropDays, err = strconv.Atoi(r.FormValue("DBDropDays")); err != nil {
@@ -108,16 +111,18 @@ func WebConfig(r *http.Request) (*HeplifyServer, error) {
 		return nil, err
 	}
 	Dedup := r.FormValue("Dedup")
-	if Dedup == "true" {
+	switch Dedup {
+	case "true":
 		webSetting.Dedup = true
-	} else if Dedup == "false" {
+	case "false":
 		webSetting.Dedup = false
 	}
 	webSetting.LogLvl = r.FormValue("LogLvl")
 	LogSys := r.FormValue("LogSys")
-	if LogSys == "true" {
+	switch LogSys {
+	case "true":
 		webSetting.LogSys = true
-	} else if LogSys == "false" {
+	case "false":
 		webSetting.LogSys = false
 	}
 
